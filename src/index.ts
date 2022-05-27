@@ -1,6 +1,6 @@
 import { ConsoleZink } from './ConsoleZink';
 import { LoggerConfiguration } from './LoggerConfiguration';
-import { LogLevel, LogMessageOptions, ZerilogConfiguration } from "./typings";
+import { LogLevel, LogMessageOptions, ZerilogConfiguration, ZerilogContext, ZerilogZink } from "./typings";
 
 export default class Zerilog {
     public static Logger: Zerilog | null;
@@ -63,4 +63,11 @@ export default class Zerilog {
 
 }
 
-export { LogLevel, LoggerConfiguration, ConsoleZink };
+export {
+    LogLevel,
+    LoggerConfiguration,
+    ConsoleZink,
+    ZerilogZink,
+    ZerilogContext
+};
+
