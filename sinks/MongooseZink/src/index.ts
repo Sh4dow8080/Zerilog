@@ -1,17 +1,18 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { LogLevel, ZerilogContext, ZerilogZink } from "zerilog/lib/typings";
 
-const ZerilogSchema = new Schema({}, { strict: false, timestamps: { createdAt: true, updatedAt: false } });
+const ZerilogSchema = new Schema({}, { strict: false });
 
 export type MongooseZinkConfiguration = {
     createConnection?: boolean;
     collectionName?: string;
     uri: string;
     options?: mongoose.ConnectOptions;
+    defaultProperties?: { [key: string]: string; };
 };
 export default class MongooseZink extends ZerilogZink {
     private _model: Model<any, {}, {}, {}>;
-    constructor(config: MongooseZinkConfiguration) {
+    constructor(private config: MongooseZinkConfiguration) {
         super();
         if (!('collectionName' in config)) config.collectionName = 'Zerilog';
         if (!('options' in config)) config.options = {};
@@ -27,10 +28,13 @@ export default class MongooseZink extends ZerilogZink {
         if (mongoose.connection.readyState != 1) return;
 
         this._model.create({
-            logLevel: LogLevel[logContext.logLevel],
-            message: logContext.message,
-            ...Object.fromEntries(logContext.properties),
-            exception: logContext?.options?.exception
+            Message: logContext.message,
+            Level: LogLevel[logContext.logLevel],
+            timestamp: new Date().toISOString(),
+            Properties: {
+                ...Object.fromEntries(logContext.properties),
+                ...this.config?.defaultProperties,
+            }
         });
     }
 }
