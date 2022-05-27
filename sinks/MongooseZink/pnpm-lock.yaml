@@ -3,11 +3,11 @@ lockfileVersion: 5.4
 specifiers:
   mongoose: ^6.3.4
   typescript: ^4.7.2
-  zerilog: ^1.0.0
+  zerilog: ^1.0.1
 
 dependencies:
   mongoose: 6.3.4
-  zerilog: 1.0.0
+  zerilog: 1.0.1
 
 devDependencies:
   typescript: 4.7.2
@@ -201,6 +201,6 @@ packages:
       webidl-conversions: 7.0.0
     dev: false
 
-  /zerilog/1.0.0:
-    resolution: {integrity: sha512-FUjMwHX906f389eZyLGl09tkb1oL2lfFvu/GiXnnJllECiqzsRtK07cWkDz3fHrTRoPokVSoJ2Ex1zxEOGJj/Q==}
+  /zerilog/1.0.1:
+    resolution: {integrity: sha512-CMviqE2QkfFQfITcYX4dEunz+GqAElPLFh3qAo8ll7C4NkLQ7JwobJO8HVbCZI03Tec4sqZyTHKFfWH4qvM/AQ==}
     dev: false

@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { LogLevel, ZerilogContext, ZerilogZink } from "zerilog/lib/typings";
+import { LogLevel, ZerilogContext, ZerilogZink } from "zerilog";
 
 const ZerilogSchema = new Schema({}, { strict: false });
 
