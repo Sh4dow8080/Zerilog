@@ -1,12 +1,11 @@
 {
   "name": "@zerilog/humiozink",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "publish": "npm run build npm publish"
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +13,7 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "zerilog": "^1.0.0"
+    "zerilog": "^1.0.1"
   },
   "devDependencies": {
     "typescript": "^4.7.2"

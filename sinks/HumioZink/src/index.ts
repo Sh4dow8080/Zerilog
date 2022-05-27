@@ -1,5 +1,5 @@
 import { request } from 'https';
-import { LogLevel, ZerilogContext, ZerilogZink } from "zerilog/lib/typings";
+import { LogLevel, ZerilogContext, ZerilogZink } from "zerilog";
 
 export type HumioZinkConfiguration = {
     ingestToken: string;

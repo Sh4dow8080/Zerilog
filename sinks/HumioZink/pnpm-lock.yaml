@@ -2,10 +2,10 @@ lockfileVersion: 5.4
 
 specifiers:
   typescript: ^4.7.2
-  zerilog: ^1.0.0
+  zerilog: ^1.0.1
 
 dependencies:
-  zerilog: 1.0.0
+  zerilog: 1.0.1
 
 devDependencies:
   typescript: 4.7.2
@@ -18,6 +18,6 @@ packages:
     hasBin: true
     dev: true
 
-  /zerilog/1.0.0:
-    resolution: {integrity: sha512-FUjMwHX906f389eZyLGl09tkb1oL2lfFvu/GiXnnJllECiqzsRtK07cWkDz3fHrTRoPokVSoJ2Ex1zxEOGJj/Q==}
+  /zerilog/1.0.1:
+    resolution: {integrity: sha512-CMviqE2QkfFQfITcYX4dEunz+GqAElPLFh3qAo8ll7C4NkLQ7JwobJO8HVbCZI03Tec4sqZyTHKFfWH4qvM/AQ==}
     dev: false
