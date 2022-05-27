@@ -8,19 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sh4dow8080/Zerilog.git"
-  },
-  "keywords": [
-    "Logging"
-  ],
   "author": "Sh4dow8080",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Sh4dow8080/Zerilog/issues"
-  },
-  "homepage": "https://github.com/Sh4dow8080/Zerilog#readme",
   "devDependencies": {
     "typescript": "^4.7.2"
   },
