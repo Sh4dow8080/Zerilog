@@ -31,8 +31,9 @@ export default class Zerilog {
             if (!condition(ZeriContext)) return;
 
             sink.SendLog(ZeriContext);
-
         });
+
+        this.config.context.clear();
     }
 
     public Information = (message: string, options?: LogMessageOptions) =>
