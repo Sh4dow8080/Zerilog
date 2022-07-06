@@ -33,8 +33,9 @@ export default class Zerilog {
         return new Zerilog(newConfig);
     }
 
-    public ForContextWhen(condition: () => boolean, key: string, value: any) {
-        if (condition())
+    public ForContextWhen(condition: (() => boolean) | boolean, key: string | object, value: any = null) {
+        let shouldAddToContext = typeof condition === "function" ? condition() : condition;
+        if (shouldAddToContext)
             return this.ForContext(key, value);
 
         return this;
