@@ -7,8 +7,19 @@ export default class Zerilog {
     constructor(private config: ZerilogConfiguration) { }
 
     public ForContext(key: string, value: any) {
+    /**
+     * @param key Key for value or object to add to cobtext
+     * @param value Value for key
+     */
+    public ForContext(key: string | object, value: any = null) {
         const newConfig = { ...this.config };
-        newConfig.context.set(key, value);
+        if (key instanceof Object) {
+            Object.entries(key)
+                .forEach(
+                    ([key, value]) => this._setContext(key, value)
+                );
+        } else
+            this._setContext(key, value);
         return new Zerilog(newConfig);
     }
 
