@@ -6,7 +6,17 @@ export default class Zerilog {
     public static Logger: Zerilog | null;
     constructor(private config: ZerilogConfiguration) { }
 
-    public ForContext(key: string, value: any) {
+    private _setContext(key: string, value: any, pos: number = 1): any {
+        if (this.config.context.has(key) == false)
+            return this.config.context.set(key, value);
+
+        while (this.config.context.has(`${key}_${pos}`)) {
+            pos++;
+        }
+
+        return this.config.context.set(`${key}_${pos}`, value);
+    }
+
     /**
      * @param key Key for value or object to add to cobtext
      * @param value Value for key
