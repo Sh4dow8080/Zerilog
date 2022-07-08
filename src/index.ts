@@ -57,9 +57,15 @@ export default class Zerilog {
         return new Zerilog(newConfig);
     }
 
-    public ForContextWhen(condition: (() => boolean) | boolean, key: object): Zerilog;
-    public ForContextWhen(condition: (() => boolean) | boolean, key: string, value: any): Zerilog;
-    public ForContextWhen(condition: (() => boolean) | boolean, key: string, value: string, ...parameters: string[]): Zerilog;
+    public ForContextWhen(condition: boolean, key: object): Zerilog;
+    public ForContextWhen(condition: () => boolean, key: object): Zerilog;
+
+    public ForContextWhen(condition: boolean, key: string, value: any): Zerilog;
+    public ForContextWhen(condition: () => boolean, key: string, value: any): Zerilog;
+
+    public ForContextWhen(condition: boolean, key: string, value: string, ...parameters: string[]): Zerilog;
+    public ForContextWhen(condition: () => boolean, key: string, value: string, ...parameters: string[]): Zerilog;
+
     public ForContextWhen(condition: (() => boolean) | boolean, key: string | object, value?: any, ...parameters: string[]): Zerilog {
         let shouldAddToContext = typeof condition === "function" ? condition() : condition;
         if (shouldAddToContext) {
