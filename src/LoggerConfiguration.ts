@@ -55,7 +55,7 @@ export class LoggerConfiguration {
 
     public Enrich: {
         WithProperty: (key: string, value: any) => LoggerConfiguration;
-        When: (ondition: () => boolean, key: string, value: string) => LoggerConfiguration;
+        When: (condition: () => boolean, key: string, value: string) => LoggerConfiguration;
         AtLevel: (level: LogLevel, key: string, value: string) => LoggerConfiguration;
     } = {
             WithProperty: (key: string, value: string): LoggerConfiguration => {
