@@ -79,7 +79,11 @@ export default class Zerilog {
     }
 
     private SendLog(severity: LogLevel, message: string, options?: LogMessageOptions) {
-        if (severity < this.config.minimumLevel) return;
+        if (severity < this.config.minimumLevel) {
+            this.config.context.clear();
+            return;
+        }
+
         this.config.zinks.forEach(({ condition, zink: sink }) => {
             let ZeriContext = {
                 logLevel: severity,
