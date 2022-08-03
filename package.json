@@ -1,6 +1,6 @@
 {
   "name": "zerilog",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Zerilog is a Typescript package that attempts to copy the functionality of the Nuget package Serilog",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
