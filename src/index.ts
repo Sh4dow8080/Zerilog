@@ -11,7 +11,7 @@ function format(message: string, ...params: any[]): string {
 };
 
 export default class Zerilog {
-    public static Logger: Zerilog | null;
+    public static Logger: Zerilog | undefined;
     constructor(private config: ZerilogConfiguration) { }
 
     private _setContext(key: string, value: any, pos: number = 1): any {
@@ -41,7 +41,6 @@ export default class Zerilog {
      */
     public ForContext(key: string, value: string, ...parameters: string[]): Zerilog;
     public ForContext(key: string | object, value?: any, ...parameters: string[]): Zerilog {
-        const newConfig = { ...this.config };
         if (key instanceof Object) {
             Object.entries(key)
                 .forEach(
@@ -53,8 +52,11 @@ export default class Zerilog {
             else
                 this._setContext(key, value ?? "null");
         }
-
-        return new Zerilog(newConfig);
+        
+        // Returning new instance of Zerilog
+        // because we don't want to have a reference to the same object
+        // for other logs that might be called after this one
+        return new Zerilog(this.config);
     }
 
     public ForContextWhen(condition: boolean, key: object): Zerilog;
@@ -75,7 +77,10 @@ export default class Zerilog {
                 return this.ForContext(key, value, ...parameters);
         }
 
-        return this;
+        // Returning new instance of Zerilog
+        // because we don't want to have a reference to the same object
+        // for other logs that might be called after this one
+        return new Zerilog(this.config);
     }
 
     private SendLog(severity: LogLevel, message: string, options?: LogMessageOptions) {
