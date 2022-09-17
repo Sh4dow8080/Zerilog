@@ -1,24 +1,19 @@
 import Zerilog from ".";
+import { Enrich } from "./Enrich";
+import { MinimumLevel } from "./MinimumLevel";
 import { LogLevel, ZerilogZink, ZinkWithCondition, ZinkWithConditionMethod } from "./typings";
-
-
 
 export class LoggerConfiguration {
     private _minimumLevel: LogLevel = LogLevel.Debug;
     private _context: Map<string, any> = new Map();
     private _zinks: ZinkWithCondition[] = [];
 
-    constructor() {
-        this.Enrich.WithProperty = this.Enrich.WithProperty.bind(this);
-        this.Enrich.When = this.Enrich.When.bind(this);
-        this.Enrich.AtLevel = this.Enrich.AtLevel.bind(this);
+    public get Enrich() {
+        return new Enrich(this);
+    };
 
-        this.MinimumLevel.Debug = this.MinimumLevel.Debug.bind(this);
-        this.MinimumLevel.Verbose = this.MinimumLevel.Verbose.bind(this);
-        this.MinimumLevel.Information = this.MinimumLevel.Information.bind(this);
-        this.MinimumLevel.Warning = this.MinimumLevel.Warning.bind(this);
-        this.MinimumLevel.Error = this.MinimumLevel.Error.bind(this);
-        this.MinimumLevel.Fatal = this.MinimumLevel.Fatal.bind(this);
+    public get MinimumLevel() {
+        return new MinimumLevel(this);
     }
 
     public WriteTo(zink: ZerilogZink) {
@@ -36,48 +31,6 @@ export class LoggerConfiguration {
         });
         return this;
     }
-
-    public MinimumLevel: {
-        Debug: () => LoggerConfiguration;
-        Verbose: () => LoggerConfiguration;
-        Information: () => LoggerConfiguration;
-        Warning: () => LoggerConfiguration;
-        Error: () => LoggerConfiguration;
-        Fatal: () => LoggerConfiguration;
-    } = {
-            Debug: () => { this._minimumLevel = LogLevel.Debug; return this; },
-            Verbose: () => { this._minimumLevel = LogLevel.Verbose; return this; },
-            Information: () => { this._minimumLevel = LogLevel.Information; return this; },
-            Warning: () => { this._minimumLevel = LogLevel.Warning; return this; },
-            Error: () => { this._minimumLevel = LogLevel.Error; return this; },
-            Fatal: () => { this._minimumLevel = LogLevel.Fatal; return this; }
-        };
-
-    public Enrich: {
-        WithProperty: (key: string, value: any) => LoggerConfiguration;
-        When: (condition: () => boolean, key: string, value: string) => LoggerConfiguration;
-        AtLevel: (level: LogLevel, key: string, value: string) => LoggerConfiguration;
-    } = {
-            WithProperty: (key: string, value: string): LoggerConfiguration => {
-                if (this._context.has(key))
-                    throw new Error(`Property ${key} already exists`);
-
-                this._context.set(key, value);
-                return this;
-            },
-
-            When: (condition: () => boolean, key: string, value: string): LoggerConfiguration => {
-                if (condition())
-                    this.Enrich.WithProperty(key, value);
-                return this;
-            },
-
-            AtLevel: (level: LogLevel, key: string, value: string): LoggerConfiguration => {
-                if (level === this._minimumLevel)
-                    this.Enrich.WithProperty(key, value);
-                return this;
-            }
-        };
 
     public CreateLogger(): Zerilog {
         if (this._zinks.length === 0)
